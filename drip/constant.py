@@ -1,0 +1,2 @@
+PESOS = "₱"
+EXIT = "EXIT"
