@@ -5,7 +5,7 @@ from drip.input_handler import InputHandler
 from drip.constant import PESOS, EXIT
 
 # instantiate
-creit = Stock('CITICORE ENERGY REIT CORP.', 'creit', 3.68, 5.49, 1000, 4)
+creit = Stock('CITICORE ENERGY REIT CORP.', 'CREIT', 3.68, 5.49, 1000, 4)
 rcr = Stock('RL COMMERCIAL REIT INC.', 'RCR', 7.90, 5.22, 100, 4)
 areit = Stock('AyalaLand REIT Inc.', 'AREIT', 42.60, 5.41, 100, 4)
 
@@ -36,11 +36,10 @@ results = market.start_simulations(selected_stock, year, monthly_investment)
 
 # results
 MenuHandler.summary()
-print(f"Total Shares:               {results['total shares']} shares")
+print(f"Total Shares:               {results['total shares']:,} shares")
 print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
 print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
 print(f"Remaining Buying Power:     {PESOS}{results['remaining bp']:>12,.2f}")
 print()
-
 
 
