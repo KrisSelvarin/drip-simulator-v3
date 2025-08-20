@@ -1,19 +1,39 @@
-# for log
 from drip.csv_handler import CSVWriter
+from drip.constant import PESOS
 # collection of stocks
 
 class Market:
     def __init__(self):
         self.stocks = []
+        self.f = {12:'Monthly', 4:'Quarterly', 2:'Bi-Annually', 1:'Annually'}
 
     def add_stock(self, stock):
         """Appends instantiated stocks to a list"""
         self.stocks.append(stock)
 
-    def stocks_info(self):
+    def all_stocks(self, stock):
         """Cycle through stocks list"""
+        freq = self.f[stock.frequency]
+
         for stock in self.stocks:
-            print(f'{stock.ticker}')
+            print(
+                f'\n{stock.name} {stock.ticker}\n'
+                f'Price per Share:              {PESOS}{stock.price:,.2f}\n'
+                f'Dividend Yield (Indicated):   {stock.div_yield}%\n'
+                f'Payout Frequency:             {freq}\n'
+                f'Dividend per Share:           {PESOS}{stock.div_per_share}\n'
+            )
+    
+    def stock_info(self, stock):
+        freq = self.f[stock.frequency]
+
+        print(
+            f'\n{stock.name} {stock.ticker}\n'
+            f'Price per Share:              {PESOS}{stock.price:,.2f}'
+            f'Dividend Yield (Indicated):   {stock.div_yield}%'
+            f'Payout Frequency:             {freq}'
+            f'Dividend per Share:           {PESOS}{stock.div_per_share}\n'
+        )
 
     def start_simulations(self, stock, year, monthly_investment):
         """Simulate monthly looping with dividend reinvestment"""
@@ -24,8 +44,8 @@ class Market:
         months_per_payout = 12 // stock.frequency
 
         # csv setup
-        filename = f"data/{stock.ticker.upper()}_{year}Y_{str(monthly_investment).replace('.', '_')}.csv"
-        header = ['Year', 'Pay-out', 'Dividends', 'Shares', 'Buying Power']
+        filename = CSVWriter.csv_filename(stock, year, monthly_investment)
+        header = ['Year', 'Pay-out', 'Dividends', 'Shares', 'Amount', 'Buying Power']
         CSVWriter.open(filename, header)    # open csv file
 
 
@@ -45,6 +65,7 @@ class Market:
                     "Pay-out": payout_num,
                     "Dividends": round(div, 2),
                     "Shares": stock.total_shares,
+                    "Amount": stock.total_shares * stock.price,
                     "Buying Power": round(stock.buying_power, 2),
 
                 })
