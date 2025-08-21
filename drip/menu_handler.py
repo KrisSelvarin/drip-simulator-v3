@@ -3,13 +3,13 @@ from drip.constant import EXIT
 
 class MenuHandler:
 
-    @classmethod
-    def startup(cls):
+    @staticmethod
+    def startup():
         """Startup Header"""
         print(f'\n=== DRIP SIMULATOR v3 ===\n')
 
-    @classmethod
-    def summary(cls):
+    @staticmethod
+    def summary():
         """Summary Header"""
         print(f'\n=== Simulation Results ===')
 

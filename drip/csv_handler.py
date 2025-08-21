@@ -5,6 +5,11 @@ import csv
 class CSVWriter:
     
     @staticmethod
+    def csv_filename(stock, year, monthly_investment):
+        """Names csv file"""
+        return f"data/{stock.ticker.upper()}_{year}Y_{str(monthly_investment).replace('.', '_')}.csv"
+
+    @staticmethod
     def open(filename, header):
         """Opens csv file"""
         CSVWriter.file = open(filename, 'w', newline="")
