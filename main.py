@@ -36,6 +36,7 @@ results = market.start_simulations(selected_stock, year, monthly_investment)
 
 # results
 MenuHandler.summary()
+market.stock_info(selected_stock)
 print(f"Total Shares:               {results['total shares']:,} shares")
 print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
 print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
