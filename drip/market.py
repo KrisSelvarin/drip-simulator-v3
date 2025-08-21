@@ -29,10 +29,10 @@ class Market:
 
         print(
             f'\n{stock.name} {stock.ticker}\n'
-            f'Price per Share:              {PESOS}{stock.price:,.2f}'
-            f'Dividend Yield (Indicated):   {stock.div_yield}%'
-            f'Payout Frequency:             {freq}'
-            f'Dividend per Share:           {PESOS}{stock.div_per_share}\n'
+            f'Price per Share:              {PESOS}{stock.price:,.2f}\n'
+            f'Dividend Yield (Indicated):   {stock.div_yield}%\n'
+            f'Payout Frequency:             {freq}\n'
+            f'Dividend per Share:           {PESOS}{stock.div_per_share:,.2f}\n'
         )
 
     def start_simulations(self, stock, year, monthly_investment):
