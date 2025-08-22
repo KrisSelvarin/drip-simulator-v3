@@ -1,5 +1,5 @@
 # for menu interface
-from drip.constant import EXIT
+from drip.constant import EXIT, INFO
 
 class MenuHandler:
 
@@ -13,8 +13,8 @@ class MenuHandler:
         """Summary Header"""
         print(f'\n=== Simulation Results ===')
 
-    @classmethod
-    def menu(cls, market):
+    @staticmethod
+    def menu(market):
         print('Select a Stock:')
          # sort by ticker
         sorted_stocks = sorted(market.stocks, key = lambda x: x.ticker)
@@ -22,13 +22,16 @@ class MenuHandler:
         # adding the sorted stocks in a dict
         menu = {i: stock for i, stock in enumerate(sorted_stocks, start=1)}
 
-        # add exit in menu
-        menu[len(sorted_stocks) + 1] = EXIT
+        # add info and exit in menu
+        menu[len(sorted_stocks) + 1] = INFO
+        menu[len(sorted_stocks) + 2] = EXIT
 
         # print dict
         for key, value in menu.items():
             if value == EXIT:
                 print(f"[{key}] {EXIT}")
+            elif value == INFO:
+                print(f"[{key}] {INFO}")
             else:
                 print(f"[{key}] {value.name} ({value.ticker})")
 

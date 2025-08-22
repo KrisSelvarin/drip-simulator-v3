@@ -13,20 +13,19 @@ class Market:
 
     def all_stocks(self, stock):
         """Cycle through stocks list"""
-        freq = self.f[stock.frequency]
-
         for stock in self.stocks:
+            freq = self.f[stock.frequency]
             print(
                 f'\n{stock.name} {stock.ticker}\n'
                 f'Price per Share:              {PESOS}{stock.price:,.2f}\n'
                 f'Dividend Yield (Indicated):   {stock.div_yield}%\n'
                 f'Payout Frequency:             {freq}\n'
-                f'Dividend per Share:           {PESOS}{stock.div_per_share}\n'
+                f'Dividend per Share:           {PESOS}{stock.div_per_share:,.2f}'
             )
     
     def stock_info(self, stock):
+        """Info function for the selected stock"""
         freq = self.f[stock.frequency]
-
         print(
             f'\n{stock.name} {stock.ticker}\n'
             f'Price per Share:              {PESOS}{stock.price:,.2f}\n'

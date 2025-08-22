@@ -3,8 +3,8 @@ from drip.constant import EXIT
 
 class InputHandler:
 
-    @classmethod
-    def get_positive_int(cls, prompt: str):
+    @staticmethod
+    def get_positive_int(prompt: str):
         """Gets Positive Integer Input"""
         while True:
             try:
@@ -16,8 +16,8 @@ class InputHandler:
             except ValueError:
                 print('Enter an Integer')
 
-    @classmethod
-    def get_positive_float(cls, prompt: str):
+    @staticmethod
+    def get_positive_float(prompt: str):
         """Gets Positive Float Input"""
         while True:
             try:
@@ -29,8 +29,8 @@ class InputHandler:
             except ValueError:
                 print('Enter a value')
 
-    @classmethod
-    def choose_from_list(cls, prompt: str, menu):
+    @staticmethod
+    def choose_from_list(prompt: str, menu):
         """Selection handler"""
         while True:
             try:
@@ -39,8 +39,6 @@ class InputHandler:
                 if selection is None:
                     print("Invalid choice, try again.")
                     continue
-                elif selection == EXIT:
-                    return EXIT
                 else:
                     return selection
             except ValueError:
