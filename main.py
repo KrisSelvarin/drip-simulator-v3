@@ -2,7 +2,7 @@ from drip.stock import Stock
 from drip.market import Market
 from drip.menu_handler import MenuHandler
 from drip.input_handler import InputHandler
-from drip.constant import PESOS, EXIT
+from drip.constant import PESOS, EXIT, INFO
 
 # instantiate
 creit = Stock('CITICORE ENERGY REIT CORP.', 'CREIT', 3.68, 5.49, 1000, 4)
@@ -15,7 +15,7 @@ market.add_stock(creit)
 market.add_stock(rcr)
 market.add_stock(areit)
 
-# Start up 
+# Start up / greeting
 MenuHandler.startup()
 
 # Menu Dictionary
@@ -25,22 +25,26 @@ menu = MenuHandler.menu(market)
 selected_stock = InputHandler.choose_from_list("Selection: ", menu)
 if selected_stock == EXIT:
     exit()
+elif selected_stock == INFO:
+    market.all_stocks(market)
+    print()
+else:
+    ## Can be put in another file
+    # User Input for Years and Monthly Investment
+    print()
+    monthly_investment = InputHandler.get_positive_float(f"Monthly Investment: {PESOS}")
+    year = InputHandler.get_positive_int(f"Investment Duration (Years): ")
 
-# User Input for Years and Monthly Investment
-print()
-monthly_investment = InputHandler.get_positive_float(f"Monthly Investment: {PESOS}")
-year = InputHandler.get_positive_int(f"Investment Duration (Years): ")
+    # Start Simulations
+    results = market.start_simulations(selected_stock, year, monthly_investment)
 
-# Start Simulations
-results = market.start_simulations(selected_stock, year, monthly_investment)
-
-# results
-MenuHandler.summary()
-market.stock_info(selected_stock)
-print(f"Total Shares:               {results['total shares']:,} shares")
-print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
-print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
-print(f"Remaining Buying Power:     {PESOS}{results['remaining bp']:>12,.2f}")
-print()
+    # results
+    MenuHandler.summary()
+    market.stock_info(selected_stock)
+    print(f"Total Shares:               {results['total shares']:,} shares")
+    print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
+    print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
+    print(f"Remaining Buying Power:     {PESOS}{results['remaining bp']:>12,.2f}")
+    print()
 
 

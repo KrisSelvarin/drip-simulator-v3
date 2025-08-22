@@ -1,2 +1,3 @@
 PESOS = "₱"
 EXIT = "EXIT"
+INFO = "STOCKS INFO"
