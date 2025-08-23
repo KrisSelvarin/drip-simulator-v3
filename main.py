@@ -18,33 +18,43 @@ market.add_stock(areit)
 # Start up / greeting
 MenuHandler.startup()
 
-# Menu Dictionary
-menu = MenuHandler.menu(market)
 
-# Select Stock to Simulate
-selected_stock = InputHandler.choose_from_list("Selection: ", menu)
-if selected_stock == EXIT:
-    exit()
-elif selected_stock == INFO:
-    market.all_stocks(market)
-    print()
-else:
-    ## Can be put in another file
-    # User Input for Years and Monthly Investment
-    print()
-    monthly_investment = InputHandler.get_positive_float(f"Monthly Investment: {PESOS}")
-    year = InputHandler.get_positive_int(f"Investment Duration (Years): ")
+while True:
+    # Menu Dictionary
+    sorted_stocks, menu = MenuHandler.main_menu(market)
 
-    # Start Simulations
-    results = market.start_simulations(selected_stock, year, monthly_investment)
+    # Select Stock to Simulate
+    selected_stock = InputHandler.choose_from_list("Selection: ", menu)
+    if selected_stock == EXIT:
+        exit('== EXITING PROGRAM ==')
+    elif selected_stock == INFO:
+        market.all_stocks(sorted_stocks)
+        response = InputHandler.response('Back to Main Menu (Y|N)? ')
+        if response == 'y':
+            continue
+        elif response == 'Invalid Input':
+            exit('INVALID INPUT: FORCE EXIT')
+        else:
+            exit('== EXITING PROGRAM ==')
+    else:
+        ### Can be put in another file
+        ## Function that takes in selected_stock as arg
+        # User Input for Years and Monthly Investment
+        print()
+        monthly_investment = InputHandler.get_positive_float(f"Monthly Investment: {PESOS}")
+        year = InputHandler.get_positive_int(f"Investment Duration (Years): ")
 
-    # results
-    MenuHandler.summary()
-    market.stock_info(selected_stock)
-    print(f"Total Shares:               {results['total shares']:,} shares")
-    print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
-    print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
-    print(f"Remaining Buying Power:     {PESOS}{results['remaining bp']:>12,.2f}")
-    print()
+        # Start Simulations
+        results = market.start_simulations(selected_stock, year, monthly_investment)
 
+        # results
+        MenuHandler.summary()
+        market.stock_info(selected_stock)
+        print(f"Total Shares:               {results['total shares']:,} shares")
+        print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
+        print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
+        print(f"Remaining Buying Power:     {PESOS}{results['remaining bp']:>12,.2f}")
+        print()
 
+        # break loop
+        break
