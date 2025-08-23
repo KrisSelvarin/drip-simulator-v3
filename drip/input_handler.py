@@ -1,5 +1,4 @@
 # handles user inputs
-from drip.constant import EXIT
 
 class InputHandler:
 
@@ -30,7 +29,7 @@ class InputHandler:
                 print('Enter a value')
 
     @staticmethod
-    def choose_from_list(prompt: str, menu):
+    def choose_from_list(prompt: str, menu: dict):
         """Selection handler"""
         while True:
             try:
@@ -43,3 +42,10 @@ class InputHandler:
                     return selection
             except ValueError:
                 print('Enter selection number.')
+
+    @staticmethod
+    def response(prompt:str):
+        """Gets User Response"""
+        print()
+        choice = input(prompt).lower()
+        return choice if choice in ('y','n') else 'Invalid Input'

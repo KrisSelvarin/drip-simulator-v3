@@ -11,9 +11,9 @@ class Market:
         """Appends instantiated stocks to a list"""
         self.stocks.append(stock)
 
-    def all_stocks(self, stock):
+    def all_stocks(self, sorted_stocks):
         """Cycle through stocks list"""
-        for stock in self.stocks:
+        for stock in sorted_stocks:
             freq = self.f[stock.frequency]
             print(
                 f'\n{stock.name} {stock.ticker}\n'

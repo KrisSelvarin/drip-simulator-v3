@@ -14,8 +14,8 @@ class MenuHandler:
         print(f'\n=== Simulation Results ===')
 
     @staticmethod
-    def menu(market):
-        print('Select a Stock:')
+    def main_menu(market):
+        print('== MAIN MENU ==')
          # sort by ticker
         sorted_stocks = sorted(market.stocks, key = lambda x: x.ticker)
 
@@ -35,4 +35,5 @@ class MenuHandler:
             else:
                 print(f"[{key}] {value.name} ({value.ticker})")
 
-        return menu
+        # returns dict
+        return sorted_stocks, menu
