@@ -3,6 +3,7 @@ from drip.market import Market
 from drip.menu_handler import MenuHandler
 from drip.input_handler import InputHandler
 from drip.constant import PESOS, EXIT, INFO
+from drip.visuals import Visuals
 
 # instantiate
 creit = Stock('CITICORE ENERGY REIT CORP.', 'CREIT', 3.68, 5.49, 1000, 4)
@@ -28,11 +29,11 @@ while True:
     if selected_stock == EXIT:
         exit('== EXITING PROGRAM ==')
     elif selected_stock == INFO:
-        market.all_stocks(sorted_stocks)
-        response = InputHandler.response('Back to Main Menu (Y|N)? ')
-        if response == 'y':
+        Market.all_stocks(sorted_stocks)
+        menu_response = InputHandler.response('Back to Main Menu (Y|N)? ')
+        if menu_response == 'y':
             continue
-        elif response == 'Invalid Input':
+        elif menu_response == 'Invalid Input':
             exit('INVALID INPUT: FORCE EXIT')
         else:
             exit('== EXITING PROGRAM ==')
@@ -45,16 +46,24 @@ while True:
         year = InputHandler.get_positive_int(f"Investment Duration (Years): ")
 
         # Start Simulations
-        results = market.start_simulations(selected_stock, year, monthly_investment)
+        results, filename = Market.start_simulations(selected_stock, year, monthly_investment)
 
         # results
         MenuHandler.summary()
-        market.stock_info(selected_stock)
+        Market.stock_info(selected_stock)
         print(f"Total Shares:               {results['total shares']:,} shares")
         print(f"Total Shares Amount:        {PESOS}{results['shares amount']:>12,.2f}")
         print(f"Total Dividends Earned:     {PESOS}{results['total dividends']:>12,.2f}")
         print(f"Remaining Buying Power:     {PESOS}{results['remaining bp']:>12,.2f}")
-        print()
+
+        # graph
+        graph_response = InputHandler.response('Show Graph (Y|N)? ')
+        if graph_response == 'y':
+            Visuals.graph(filename)
+        elif graph_response == 'Invalid Input':
+            exit('INVALID INPUT: FORCE EXIT')
+        else:
+            exit('== EXITING PROGRAM ==')
 
         # break loop
         break
