@@ -1,0 +1,2 @@
+# treat jupyterfile as python (well because its just python code inside)
+*.ipynb linguist-language=Python

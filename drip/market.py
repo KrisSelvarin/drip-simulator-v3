@@ -5,16 +5,17 @@ from drip.constant import PESOS
 class Market:
     def __init__(self):
         self.stocks = []
-        self.f = {12:'Monthly', 4:'Quarterly', 2:'Bi-Annually', 1:'Annually'}
-
+        
     def add_stock(self, stock):
         """Appends instantiated stocks to a list"""
         self.stocks.append(stock)
 
-    def all_stocks(self, sorted_stocks):
+    @staticmethod
+    def all_stocks(sorted_stocks):
         """Cycle through stocks list"""
+        f = {12:'Monthly', 4:'Quarterly', 2:'Bi-Annually', 1:'Annually'}
         for stock in sorted_stocks:
-            freq = self.f[stock.frequency]
+            freq = f[stock.frequency]
             print(
                 f'\n{stock.name} {stock.ticker}\n'
                 f'Price per Share:              {PESOS}{stock.price:,.2f}\n'
@@ -23,9 +24,11 @@ class Market:
                 f'Dividend per Share:           {PESOS}{stock.div_per_share:,.2f}'
             )
     
-    def stock_info(self, stock):
+    @staticmethod
+    def stock_info(stock):
         """Info function for the selected stock"""
-        freq = self.f[stock.frequency]
+        f = {12:'Monthly', 4:'Quarterly', 2:'Bi-Annually', 1:'Annually'}
+        freq = f[stock.frequency]
         print(
             f'\n{stock.name} {stock.ticker}\n'
             f'Price per Share:              {PESOS}{stock.price:,.2f}\n'
@@ -34,7 +37,8 @@ class Market:
             f'Dividend per Share:           {PESOS}{stock.div_per_share:,.2f}\n'
         )
 
-    def start_simulations(self, stock, year, monthly_investment):
+    @staticmethod
+    def start_simulations(stock, year, monthly_investment):
         """Simulate monthly looping with dividend reinvestment"""
         # reset values
         stock.reset_values()
@@ -72,10 +76,10 @@ class Market:
         # closes csv file
         CSVWriter.close()
 
-        # return for summary
+        # return for summary and the filename
         return {
             'total shares': stock.total_shares,
             'shares amount': stock.total_shares * stock.price,
             'total dividends': stock.total_dividends,
             'remaining bp': stock.buying_power,
-        }
+        }, filename
