@@ -6,7 +6,7 @@ class MenuHandler:
     @staticmethod
     def startup():
         """Startup Header"""
-        print(f'\n=== DRIP SIMULATOR v3 ===\n')
+        print(f'\n=== DRIP SIMULATOR v3 ===')
 
     @staticmethod
     def summary():
@@ -15,7 +15,7 @@ class MenuHandler:
 
     @staticmethod
     def main_menu(market):
-        print('== MAIN MENU ==')
+        print('\n== MAIN MENU ==')
          # sort by ticker
         sorted_stocks = sorted(market.stocks, key = lambda x: x.ticker)
 

@@ -39,7 +39,7 @@ class Market:
 
     @staticmethod
     def start_simulations(stock, year, monthly_investment):
-        """Simulate monthly looping with dividend reinvestment"""
+        """Dividend reinvestment core logic"""
         # reset values
         stock.reset_values()
 

@@ -7,7 +7,7 @@ class InputHandler:
         """Gets Positive Integer Input"""
         while True:
             try:
-                x = int(input(prompt))
+                x = int(input(prompt).strip())
                 if x > 0:
                     return x
                 else:
@@ -20,7 +20,7 @@ class InputHandler:
         """Gets Positive Float Input"""
         while True:
             try:
-                x = float(input(prompt))
+                x = float(input(prompt).strip())
                 if x > 0:
                     return x
                 else:
@@ -47,5 +47,11 @@ class InputHandler:
     def response(prompt:str):
         """Gets User Response"""
         print()
-        choice = input(prompt).lower()
-        return choice if choice in ('y','n') else 'Invalid Input'
+        while True:
+            choice = input(prompt).strip().lower()
+            if choice == 'y':
+                return True
+            elif choice == 'n':
+                return False
+            else:
+                print('== INVALID INPUT ==')
