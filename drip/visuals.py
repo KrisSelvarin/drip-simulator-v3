@@ -9,7 +9,7 @@ from scipy.interpolate import make_interp_spline
 class Visuals:
     
     @staticmethod
-    def graph(filename):
+    def graph(filename: str, show=False):
         """Generates Graph"""
         data = pd.read_csv(filename)
 
@@ -99,7 +99,7 @@ class Visuals:
         # ----------------------- portfolio composition --------------------------------------
         ax_2 = fig.add_subplot(gs[1, 1])
 
-        div = data.iloc[-1, data.columns.get_loc('Dividends')]
+        div = data['Dividends'].sum()
         capital = data.iloc[-1, data.columns.get_loc('Amount')] - div
         sizes = [div, capital]
         labels = ['Dividends', 'Capital Growth']
@@ -115,7 +115,7 @@ class Visuals:
 
         ax_2.set_title('PORTFOLIO COMPOSITION', fontweight='bold', fontsize=12, color='#00e5ff', pad=10)
 
-        # show graph
+        # layout adjustments
         fig.subplots_adjust(
             top=0.92,      # leave room for titles
             bottom=0.08,   # space below x-axis labels
@@ -124,4 +124,14 @@ class Visuals:
             hspace=0.35,   # vertical spacing between rows
             wspace=0.3     # horizontal spacing between bottom panels
         )
-        plt.show()
+        
+        # save graph
+        new_filename = filename.replace('data/', 'data/graph/', 1).replace('.csv', '.png', 1)
+        plt.savefig(new_filename, dpi=300)
+
+
+        if show:
+            plt.show()
+            print(f"Graph displayed and saved: {new_filename}")
+        else:
+            print(f"Graph saved (not displayed): {new_filename}")
